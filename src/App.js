@@ -4,14 +4,19 @@ import Home from "./components/Home";
 import Account from "./components/Account";
 import Cards from "./components/Cards";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
-import useAuth from './PrivateRoute/useAuth';
+import useAuth from "./PrivateRoute/useAuth";
 import Admin from "./components/Admin";
 
 function App() {
-  const [isAuth, login, logout] = useAuth(false);
+  const [isAuth, login, logout, isAdmin, makeAdmin, revokeAdmin] =
+    useAuth(false);
+
   return (
     <div>
-      <h1>Hello.. Welcome to Sridhar Workout on Protected Route - React Router version 6</h1>
+      <h1>
+        Hello.. Welcome to Sridhar Workout on Protected Route - React Router
+        version 6
+      </h1>
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -22,40 +27,36 @@ function App() {
         <li>
           <Link to="/cards">Cards</Link>
         </li>
-        <li>
-          <Link to="/admin">Admin</Link>
-        </li>
       </ul>
-      {isAuth ? (<><div>You are logged in</div><button onClick={logout}>Logout</button></>): (<><div>You are logged out</div><button onClick={login}>Login</button></>)}
+      {isAuth ? (
+        <>
+          <div>You are logged in</div>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <div>You are logged out</div>
+          <button onClick={login}>Login</button>
+        </>
+      )}
+
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route 
+        <Route
           exact
           path="/accounts"
           element={
-            <PrivateRoute
-             auth={isAuth} >
+            <PrivateRoute auth={isAuth}>
               <Account />
             </PrivateRoute>
           }
         />
-        <Route 
+        <Route
           exact
           path="/cards"
           element={
-            <PrivateRoute
-             auth={isAuth} >
+            <PrivateRoute auth={isAuth}>
               <Cards />
-            </PrivateRoute>
-          }
-        />
-        <Route 
-          exact
-          path="/admin"
-          element={
-            <PrivateRoute
-             auth={isAuth} >
-              <Admin />
             </PrivateRoute>
           }
         />
