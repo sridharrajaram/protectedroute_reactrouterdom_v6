@@ -3,8 +3,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Account from "./components/Account";
 import Cards from "./components/Cards";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import useAuth from './components/PrivateRoute/useAuth';
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import useAuth from './PrivateRoute/useAuth';
+import Admin from "./components/Admin";
 
 function App() {
   const [isAuth, login, logout] = useAuth(false);
@@ -20,6 +21,9 @@ function App() {
         </li>
         <li>
           <Link to="/cards">Cards</Link>
+        </li>
+        <li>
+          <Link to="/admin">Admin</Link>
         </li>
       </ul>
       {isAuth ? (<><div>You are logged in</div><button onClick={logout}>Logout</button></>): (<><div>You are logged out</div><button onClick={login}>Login</button></>)}
@@ -42,6 +46,16 @@ function App() {
             <PrivateRoute
              auth={isAuth} >
               <Cards />
+            </PrivateRoute>
+          }
+        />
+        <Route 
+          exact
+          path="/admin"
+          element={
+            <PrivateRoute
+             auth={isAuth} >
+              <Admin />
             </PrivateRoute>
           }
         />
