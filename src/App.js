@@ -5,7 +5,6 @@ import Account from "./components/Account";
 import Cards from "./components/Cards";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import useAuth from "./PrivateRoute/useAuth";
-import Admin from "./components/Admin";
 
 function App() {
   const [isAuth, login, logout, isAdmin, makeAdmin, revokeAdmin] =
